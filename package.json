@@ -11,7 +11,9 @@
     "nuxt": "3.0.0-rc.8"
   },
   "dependencies": {
+    "@nuxtjs/firebase": "^8.2.2",
     "axios": "^0.27.2",
+    "firebase": "^9.15.0",
     "primeflex": "^3.2.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.17.0"
