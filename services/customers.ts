@@ -13,10 +13,10 @@ export const createCustomer = async (ad: CustomerCreate) => {
 export const getCustomers = async () => {
   const q = query(collection(firestore, 'Customer'))
   const querySnapshot = await getDocs(q)
-  const ads = querySnapshot.docs.map((doc) => {
+  const customers = querySnapshot.docs.map((doc) => {
     return { ...doc.data(), uid: doc.id }
   })
-  return ads
+  return customers
 }
 
 export const getCustomer = async (id: string) => {

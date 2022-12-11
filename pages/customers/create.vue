@@ -12,6 +12,7 @@ const nameOfCompany = ref('')
 const websiteOfCompany = ref('')
 const emailOfCompany = ref('')
 
+const router = useRouter()
 
 const createNewCustomer = async () => {
     console.log('createNewCustomer')
@@ -25,6 +26,7 @@ const createNewCustomer = async () => {
     }
     console.log(customer)
     await createCustomer(customer)
+    router.push('/customers')
 
 }
 

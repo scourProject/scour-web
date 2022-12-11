@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 
 import { auth, firestore } from './firebase'
 
-import { RegisterData } from '@/types'
+import { RegisterData } from '~~/types/auth'
 
 export const register = async (userData: RegisterData) => {
   try {
