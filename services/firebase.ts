@@ -15,13 +15,12 @@ import { getAnalytics, isSupported } from 'firebase/analytics'
 // }
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDdJViAsg7kAO6kYdZRXljJXCEaGxIFzSw",
-  authDomain: "scour-f396a.firebaseapp.com",
-  projectId: "scour-f396a",
-  storageBucket: "scour-f396a.appspot.com",
-  messagingSenderId: "1069346067565",
-  appId: "1:1069346067565:web:75c475f9675d70a66e9b64",
-  measurementId: "G-4C7BFPXF8T"
+  apiKey: "AIzaSyAGj0K04JTIVAw7XMatUvAS31LINMmxa7Y",
+  authDomain: "scour-test.firebaseapp.com",
+  projectId: "scour-test",
+  storageBucket: "scour-test.appspot.com",
+  messagingSenderId: "131503368289",
+  appId: "1:131503368289:web:8b0786663ad9ea8d8ce220"
 };
 
 const app = initializeApp(firebaseConfig)

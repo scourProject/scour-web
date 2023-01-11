@@ -5,7 +5,6 @@ import Button from 'primevue/button';
 import { createCustomer } from '~~/services/customers';
 definePageMeta({ title: 'Home', layout: 'main' })
 
-
 const isVIP = ref(false)
 const additionalInformation = ref('')
 const nameOfCompany = ref('')
