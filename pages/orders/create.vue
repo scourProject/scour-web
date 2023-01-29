@@ -13,14 +13,14 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const objects = ref()
 const customers = ref()
+const objects = ref()
 
-const selectedObject = ref(objects.value[0])
+const selectedCustomer = ref()
+const selectedObject = ref()
+const objectsByCustomers = ref()
 
 const additionalInformation = ref('')
-const selectedCustomer = ref(customers[0])
-const objectsByCustomers = ref()
 
 const createNewOrder = async (objectID: string) => {
   const order = {
@@ -30,6 +30,10 @@ const createNewOrder = async (objectID: string) => {
   }
   await createOrder(order)
   router.push('/orders')
+}
+
+const handleCustomerSelect = () => {
+  objectsByCustomers.value = objects.value.filter((x) => x['customerID'] == selectedCustomer.value.uid)
 }
 
 onMounted(() => {
@@ -42,7 +46,7 @@ onMounted(() => {
     customers.value = data
   })
 
-  objectsByCustomers.value = objects.value.filter((x) => x['customerID'] == selectedCustomer.value.uid)
+  //   objectsByCustomers.value = objects.value.filter((x) => x['customerID'] == selectedCustomer.value.uid)
 })
 
 definePageMeta({ title: 'Home', layout: 'main' })
@@ -60,7 +64,7 @@ definePageMeta({ title: 'Home', layout: 'main' })
 
       <div class="object_customer m-t-5 w-40%">
         <h5 class="m-t-3">Выберите заказчика</h5>
-        <Dropdown class="m-t-1 w-100%" v-model="selectedCustomer" :options="customers" optionLabel="nameOfCompany" placeholder="Select a Customer" />
+        <Dropdown class="m-t-1 w-100%" v-model="selectedCustomer" @change="handleCustomerSelect" :options="customers" optionLabel="nameOfCompany" placeholder="Select a Customer" />
       </div>
 
       <div class="object_customer m-t-5 w-40%">
