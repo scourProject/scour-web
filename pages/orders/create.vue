@@ -22,9 +22,12 @@ const objectsByCustomers = ref()
 
 const additionalInformation = ref('')
 
-const createNewOrder = async (objectID: string) => {
+const createNewOrder = async () => {
   const order = {
-    objectID: objectID,
+    objectID: selectedObject.value.uid,
+    objectName: selectedObject.value.name,
+    objectAddress: selectedObject.value.address,
+    requiredWorkerAmount: selectedObject.value.requiredWorkerAmount,
     deadline: '13.12.2022',
     status: 'Создана',
   }
@@ -64,12 +67,14 @@ definePageMeta({ title: 'Home', layout: 'main' })
 
       <div class="object_customer m-t-5 w-40%">
         <h5 class="m-t-3">Выберите заказчика</h5>
-        <Dropdown class="m-t-1 w-100%" v-model="selectedCustomer" @change="handleCustomerSelect" :options="customers" optionLabel="nameOfCompany" placeholder="Select a Customer" />
+        <Dropdown class="m-t-1 w-100%" v-model="selectedCustomer" @change="handleCustomerSelect" :options="customers"
+          optionLabel="nameOfCompany" placeholder="Select a Customer" />
       </div>
 
       <div class="object_customer m-t-5 w-40%">
         <h5 class="m-t-3">Выберите объект</h5>
-        <Dropdown class="m-t-1 w-100%" v-model="selectedObject" :options="objectsByCustomers" optionLabel="name" placeholder="Select an object" />
+        <Dropdown class="m-t-1 w-100%" v-model="selectedObject" :options="objectsByCustomers" optionLabel="name"
+          placeholder="Select an object" />
       </div>
 
       <div class="customer_logo m-t-5">
@@ -84,7 +89,7 @@ definePageMeta({ title: 'Home', layout: 'main' })
         <Textarea class="w-40% h-20" v-model="additionalInformation" :autoResize="true" rows="5" cols="30" />
       </div>
 
-      <Button label="Создать" class="bg-[#060E28] b-[#060E28] m-t-5" @click="() => createNewOrder('1')" />
+      <Button label="Создать" class="bg-[#060E28] b-[#060E28] m-t-5" @click="() => createNewOrder()" />
     </div>
   </div>
 </template>
