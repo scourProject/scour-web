@@ -13,19 +13,11 @@ defineProps<{
 }>()
 const router = useRouter()
 
-const createNewOrder = async (objectID: string, objectName: string, objectAddress: string, requiredWorkerAmount: number) => {
-    const order = {
-        objectID: objectID,
-        objectName: objectName,
-        objectAddress: objectAddress,
-        requiredWorkerAmount: requiredWorkerAmount,
-        deadline: "13.12.2022",
-        status: 'Создана'
-    }
-    await createOrder(order)
-    router.push('/orders')
 
+const redirectToCreateOrderPage = (objectID) => {
+    router.push(`/orders/create/${objectID}`)
 }
+
 </script>
 
 <template>
@@ -34,7 +26,7 @@ const createNewOrder = async (objectID: string, objectName: string, objectAddres
         <div class="flex justify-end">
             <div class="flex w-45% justify-between">
                 <Button class="text-green b-green b-1  bg-white" icon="pi pi-plus-circle"
-                    @click="() => createNewOrder(objectID, objectName, address, plan)" />
+                    @click="() => redirectToCreateOrderPage(objectID)" />
                 <Button class="text-[#060E28] b-[#060E28] b-1  bg-white" icon="pi pi-pencil" />
                 <Button class="text-red b-red b-1  bg-white" icon="pi pi-trash" />
             </div>

@@ -3,8 +3,6 @@
 import ObjectCard from '~~/components/objects/ObjectCard.vue'
 import { getObjects } from '~~/services/objects';
 
-import { getCustomer } from '~~/services/customers';
-
 definePageMeta({ title: 'Home', layout: 'main' })
 
 const router = useRouter()
@@ -12,6 +10,7 @@ const router = useRouter()
 const redirectToCreateObjectPage = () => {
   router.push('/objects/create')
 }
+
 
 onMounted(() => {
   console.log(objects)
