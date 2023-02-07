@@ -1,5 +1,5 @@
 
-import { doc, addDoc, getDoc, getDocs, collection, query, where, serverTimestamp } from 'firebase/firestore'
+import { doc, addDoc, getDoc, getDocs, collection, query, where, serverTimestamp, orderBy } from 'firebase/firestore'
 import { OrderCreate } from '~~/types/orders'
 
 import { firestore } from './firebase'
@@ -12,7 +12,7 @@ export const createOrder = async (ad: OrderCreate) => {
 }
 
 export const getOrders = async () => {
-    const q = query(collection(firestore, 'Order'))
+    const q = query(collection(firestore, 'Order',), orderBy('createdAt', 'desc'))
     const querySnapshot = await getDocs(q)
     const orders = querySnapshot.docs.map((doc) => {
         return { ...doc.data(), uid: doc.id }

@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { stringLength } from '@firebase/util';
-import { p } from '@unocss/preset-mini/dist/utilities-d1833377';
 
 defineProps<{
     objectName: string
     address: string
     plan: number
     status: string
-    deadline: string
-
-
+    deadline: Date
 }>()
+
 </script>
 
 <template>
@@ -36,7 +33,9 @@ defineProps<{
             </div>
             <div class="card-body__item">
                 <div class="card-body__item__title m-b-3">
-                    <p><span class="font-bold">Дедлайн:</span> {{ deadline }} </p>
+                    <p><span class="font-bold">Дедлайн:</span> {{ deadline.toLocaleDateString() }} {{
+                        deadline.toLocaleTimeString()
+                    }}</p>
                 </div>
                 <div class="card-body__item__content">
                 </div>

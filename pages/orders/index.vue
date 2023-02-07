@@ -31,7 +31,7 @@ const redirectToCreateOrderPage = () => {
                     <div v-for="order in orders" class="100%">
                         <OrderCard v-if="order['status'] == 'Создана'" :objectName='order["objectName"]'
                             :address='order["objectAddress"]' :plan='order["requiredWorkerAmount"]'
-                            :status='order["status"]' :deadline='order["deadline"]' />
+                            :status='order["status"]' :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
 
                 </div>
