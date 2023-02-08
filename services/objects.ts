@@ -1,6 +1,6 @@
 import { doc, addDoc, getDoc, getDocs, collection, query, where, serverTimestamp } from 'firebase/firestore'
 import { ObjectCreate } from '~~/types/objects'
-
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { firestore } from './firebase'
 
 
@@ -33,4 +33,9 @@ export const getObjectsByCustomer = async (uid: string) => {
     return objects
 }
 
+export const objectImageUpload = (file: any, filename: string) => {
+    const storage = getStorage()
+    const storageRef = ref(storage, `objects/${filename}`)
+    return uploadBytes(storageRef, file)
+}
 

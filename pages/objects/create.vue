@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import Checkbox from 'primevue/checkbox';
-import FileUpload from 'primevue/fileupload';
 import Button from 'primevue/button';
 import Dropdown from 'primevue/dropdown';
-import { createObject } from '~~/services/objects';
+import { createObject, objectImageUpload } from '~~/services/objects';
 import { getCustomers } from '~~/services/customers';
+
 definePageMeta({ title: 'Home', layout: 'main' })
 
 
@@ -15,13 +14,25 @@ const additionalInformation = ref('')
 const requiredWorkerAmount = ref('')
 const isActive = ref(true)
 const photoLink = ref('')
-
-
+const image = ref('')
+const imageLoaded = ref(false)
 
 const router = useRouter()
 
 var customers = await getCustomers();
 const selectedCustomer = ref(customers[0])
+
+const handleImageUpload = (e: any) => {
+    imageLoaded.value = true
+    const file = e.target.files[0]
+    const filename = file.name.split('.').pop() + '-' + Date.now().toString() + Math.random()
+
+    objectImageUpload(file, filename)
+        .then(() => {
+            image.value = `https://firebasestorage.googleapis.com/v0/b/scour-test.appspot.com/o/objects%2F${filename}?alt=media`
+        })
+    imageLoaded.value = false
+}
 
 const createNewObject = async () => {
     const object = {
@@ -32,7 +43,7 @@ const createNewObject = async () => {
         additionalInformation: additionalInformation.value,
         requiredWorkerAmount: parseInt(requiredWorkerAmount.value),
         isActive: isActive.value,
-        photoLink: photoLink.value
+        photoLink: image.value
     }
     await createObject(object)
     router.push('/objects')
@@ -48,7 +59,7 @@ const createNewObject = async () => {
 
             <div class="customer_logo m-t-10 flex w-40% flex-col items-center">
                 <div>
-                    <img class="w-40" src="~/assets/images/build_empty.png" alt="">
+                    <img class="w-40" :src="image != '' ? image : '../../assets/images/build_empty.png'" alt="">
                 </div>
             </div>
 
@@ -57,7 +68,8 @@ const createNewObject = async () => {
                     <span class="p-inputgroup-addon">
                         <i class="pi pi-camera text-[#060E28]"></i>
                     </span>
-                    <InputText placeholder="Ссылка на url photo объекта" v-model="photoLink" />
+                    <InputText id="choose_image" class="h-90%" placeholder="Ссылка на url photo объекта" type="file"
+                        accept="image/*" @change="handleImageUpload" />
                 </div>
             </div>
 

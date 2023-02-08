@@ -1,9 +1,7 @@
-
 import { doc, addDoc, getDoc, getDocs, collection, query, where, serverTimestamp, orderBy } from 'firebase/firestore'
 import { OrderCreate } from '~~/types/orders'
-
 import { firestore } from './firebase'
-
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 
 
 export const createOrder = async (ad: OrderCreate) => {
@@ -26,5 +24,10 @@ export const getOrder = async (id: string) => {
 }
 
 
+export const orderImageUpload = (file: any, filename: string) => {
+    const storage = getStorage()
+    const storageRef = ref(storage, `images/${filename}`)
+    return uploadBytes(storageRef, file)
+}
 
 

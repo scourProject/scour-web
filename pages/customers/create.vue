@@ -40,7 +40,6 @@ const createNewCustomer = async () => {
                 <div>
                     <img class="w-40" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" alt="">
                 </div>
-                <input type="file" name="" id="">
             </div>
 
             <div class="customer_name m-t-5">
