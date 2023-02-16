@@ -1,4 +1,4 @@
-import { doc, addDoc, getDoc, getDocs, collection, query, where, serverTimestamp } from 'firebase/firestore'
+import { doc, addDoc, getDoc, getDocs, deleteDoc, collection, query, where, serverTimestamp } from 'firebase/firestore'
 import { ObjectCreate } from '~~/types/objects'
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { firestore } from './firebase'
@@ -37,5 +37,16 @@ export const objectImageUpload = (file: any, filename: string) => {
     const storage = getStorage()
     const storageRef = ref(storage, `objects/${filename}`)
     return uploadBytes(storageRef, file)
+}
+
+export const deleteObject = async (id: string) => {
+    const documentRef = doc(firestore, 'Object', id);
+    return deleteDoc(documentRef)
+        .then(() => {
+            console.log('Document deleted successfully');
+        })
+        .catch((error) => {
+            console.error('Error deleting document: ', error);
+        });
 }
 

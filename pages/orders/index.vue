@@ -3,6 +3,7 @@ import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 import OrderCard from '~~/components/orders/OrderCard.vue'
 import { getOrders } from '~~/services/orders';
+import { ref, computed } from 'vue';
 
 definePageMeta({ title: 'Home', layout: 'main' })
 
@@ -12,6 +13,18 @@ const router = useRouter()
 const redirectToCreateOrderPage = () => {
     router.push('/orders/create')
 }
+
+const filteredOrders = computed(() => {
+    return (status: string) => {
+        return orders.filter((item) => item["status"] === status);
+    };
+});
+
+const createdOrders = filteredOrders.value('Создана');
+const inProcessOrders = filteredOrders.value('На выполнении');
+const inWaitingOrders = filteredOrders.value('Ждет подтверждения');
+const completedOrders = filteredOrders.value('Завершена');
+const overdueOrders = filteredOrders.value('Просрочена');
 </script>
 
 
@@ -27,55 +40,51 @@ const redirectToCreateOrderPage = () => {
         </div>
         <TabView>
             <TabPanel header="Созданные заявки">
-                <div class="flex flex-wrap">
-                    <div v-for="order in orders" class="100%">
-                        <OrderCard v-if="order['status'] == 'Создана'" :objectName='order["objectName"]'
-                            :address='order["objectAddress"]' :plan='order["requiredWorkerAmount"]'
-                            :status='order["status"]' :deadline='new Date(order["deadline"].seconds * 1000)' />
+                <div class="grid grid-cols-3 gap-4">
+                    <div v-for="order in createdOrders">
+                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                            :plan='order["requiredWorkerAmount"]' :status='order["status"]'
+                            :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
-
                 </div>
             </TabPanel>
             <TabPanel header="На выполнении">
-                <div class="flex flex-wrap">
-                    <div v-for="order in orders">
-                        <OrderCard v-if="order['status'] == 'На выполнении'" :objectName='order["objectName"]'
-                            :address='order["objectAddress"]' :plan='order["requiredWorkerAmount"]'
-                            :status='order["status"]' :deadline='order["deadline"]' />
+                <div class="grid grid-cols-3 gap-4">
+                    <div v-for="order in inProcessOrders">
+                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                            :plan='order["requiredWorkerAmount"]' :status='order["status"]'
+                            :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
                 </div>
             </TabPanel>
             <TabPanel header="Ждут подтверждения">
-                <div class="flex flex-wrap">
-                    <div v-for="order in orders">
-                        <OrderCard v-if="order['status'] == 'Ждут подтверждения'" :objectName='order["objectName"]'
-                            :address='order["objectAddress"]' :plan='order["requiredWorkerAmount"]'
-                            :status='order["status"]' :deadline='order["deadline"]' />
+                <div class="grid grid-cols-3 gap-4">
+                    <div v-for="order in inWaitingOrders">
+                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                            :plan='order["requiredWorkerAmount"]' :status='order["status"]'
+                            :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
                 </div>
             </TabPanel>
             <TabPanel header="Завершены">
-                <div class="flex flex-wrap">
-                    <div v-for="order in orders">
-                        <OrderCard v-if="order['status'] == 'Завершены'" :objectName='order["objectName"]'
-                            :address='order["objectAddress"]' :plan='order["requiredWorkerAmount"]'
-                            :status='order["status"]' :deadline='order["deadline"]' />
+                <div class="grid grid-cols-3 gap-4">
+                    <div v-for="order in completedOrders">
+                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                            :plan='order["requiredWorkerAmount"]' :status='order["status"]'
+                            :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
                 </div>
             </TabPanel>
             <TabPanel header="Просрочены">
-                <div class="flex flex-wrap">
-                    <div v-for="order in orders">
-                        <OrderCard v-if="order['status'] == 'Просрочены'" :objectName='order["objectName"]'
-                            :address='order["objectAddress"]' :plan='order["requiredWorkerAmount"]'
-                            :status='order["status"]' :deadline='order["deadline"]' />
+                <div class="grid grid-cols-3 gap-4">
+                    <div v-for="order in overdueOrders">
+                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                            :plan='order["requiredWorkerAmount"]' :status='order["status"]'
+                            :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
                 </div>
             </TabPanel>
         </TabView>
-
-
-
 
 
     </div>

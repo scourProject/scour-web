@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import ObjectCard from '~~/components/objects/ObjectCard.vue'
-import { getObjects } from '~~/services/objects';
+import { getObjects, deleteObject } from '~~/services/objects';
 
 definePageMeta({ title: 'Home', layout: 'main' })
 
@@ -11,15 +11,15 @@ const redirectToCreateObjectPage = () => {
   router.push('/objects/create')
 }
 
+var objects = ref(await getObjects());
 
-onMounted(() => {
-  console.log(objects)
-})
-var objects = await getObjects();
-
-
-
-
+const deleteObjectHandle = async (objectID) => {
+  await deleteObject(objectID).then(() => {
+    objects.value = objects.value.filter((x) => x.uid != objectID)
+  }).catch((error) => {
+    console.log(error)
+  })
+}
 </script>
 
 
@@ -35,11 +35,7 @@ var objects = await getObjects();
     <div class="flex flex-wrap">
       <ObjectCard v-for="object in objects" :customer='object["customerName"]' :photoLink='object["photoLink"]'
         :address='object["address"]' :objectID='object.uid' :objectName='object["name"]'
-        :plan='object["requiredWorkerAmount"]' />
-
+        :plan='object["requiredWorkerAmount"]' :deleteFunction="deleteObjectHandle" />
     </div>
-
-
-
   </div>
 </template>

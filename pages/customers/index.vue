@@ -34,7 +34,13 @@ var customers = await getCustomers();
         </Column>
         <Column field="uid" header="">
           <template #body="slotProps">
-            <Button class="b-[#060E28] bg-white color-[#060E28] font-medium hover:bg-[#060E28]" icon="pi pi-pencil" />
+            <div class="flex justify-between w-90%">
+              <Button class="b-[#060E28] bg-white color-[#060E28] font-medium hover:bg-[#060E28]"
+                icon="pi pi-ellipsis-h" />
+              <Button class="b-[#060E28] bg-white color-[#060E28] font-medium hover:bg-[#060E28]" icon="pi pi-pencil" />
+              <Button class="b-[#FF0000] bg-white color-[#FF0000] font-medium hover:bg-[#FF0000]" icon="pi pi-trash" />
+            </div>
+
           </template>
         </Column>
       </DataTable>
