@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { deleteObject } from '~~/services/objects';
 import { p } from '@unocss/preset-mini/dist/utilities-d1833377';
 
 defineProps<{
@@ -11,12 +10,6 @@ defineProps<{
     photoLink: string
     deleteFunction: (objectId: string) => void
 }>()
-const router = useRouter()
-
-
-const redirectToCreateOrderPage = (objectID) => {
-    router.push(`/orders/create/${objectID}`)
-}
 
 
 </script>
@@ -26,11 +19,9 @@ const redirectToCreateOrderPage = (objectID) => {
 
         <div class="flex justify-end">
             <div class="flex w-45% justify-between">
-                <Button class="text-green b-green b-1  bg-white" icon="pi pi-plus-circle"
-                    @click="() => redirectToCreateOrderPage(objectID)" />
+                <Button class="text-green b-green b-1  bg-white" icon="pi pi-plus-circle" />
                 <Button class="text-[#060E28] b-[#060E28] b-1  bg-white" icon="pi pi-pencil" />
-                <Button class="text-red b-red b-1  bg-white" icon="pi pi-trash"
-                    @click="() => deleteFunction(objectID)" />
+                <Button class="text-red b-red b-1  bg-white" icon="pi pi-trash" @click="() => deleteFunction(objectID)" />
             </div>
         </div>
 
@@ -59,6 +50,5 @@ const redirectToCreateOrderPage = (objectID) => {
                 </div>
             </div>
         </div>
-
-    </div>
+</div>
 </template>

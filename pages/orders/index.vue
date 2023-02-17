@@ -42,7 +42,7 @@ const overdueOrders = filteredOrders.value('Просрочена');
             <TabPanel header="Созданные заявки">
                 <div class="grid grid-cols-3 gap-4">
                     <div v-for="order in createdOrders">
-                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                        <OrderCard :uid="order.uid" :objectName='order["objectName"]' :address='order["objectAddress"]'
                             :plan='order["requiredWorkerAmount"]' :status='order["status"]'
                             :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
@@ -51,7 +51,7 @@ const overdueOrders = filteredOrders.value('Просрочена');
             <TabPanel header="На выполнении">
                 <div class="grid grid-cols-3 gap-4">
                     <div v-for="order in inProcessOrders">
-                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                        <OrderCard :uid="order.uid" :objectName='order["objectName"]' :address='order["objectAddress"]'
                             :plan='order["requiredWorkerAmount"]' :status='order["status"]'
                             :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
@@ -60,7 +60,7 @@ const overdueOrders = filteredOrders.value('Просрочена');
             <TabPanel header="Ждут подтверждения">
                 <div class="grid grid-cols-3 gap-4">
                     <div v-for="order in inWaitingOrders">
-                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                        <OrderCard :uid="order.uid" :objectName='order["objectName"]' :address='order["objectAddress"]'
                             :plan='order["requiredWorkerAmount"]' :status='order["status"]'
                             :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
@@ -69,7 +69,7 @@ const overdueOrders = filteredOrders.value('Просрочена');
             <TabPanel header="Завершены">
                 <div class="grid grid-cols-3 gap-4">
                     <div v-for="order in completedOrders">
-                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                        <OrderCard :uid="order.uid" :objectName='order["objectName"]' :address='order["objectAddress"]'
                             :plan='order["requiredWorkerAmount"]' :status='order["status"]'
                             :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
@@ -78,7 +78,7 @@ const overdueOrders = filteredOrders.value('Просрочена');
             <TabPanel header="Просрочены">
                 <div class="grid grid-cols-3 gap-4">
                     <div v-for="order in overdueOrders">
-                        <OrderCard :objectName='order["objectName"]' :address='order["objectAddress"]'
+                        <OrderCard :uid="order.uid" :objectName='order["objectName"]' :address='order["objectAddress"]'
                             :plan='order["requiredWorkerAmount"]' :status='order["status"]'
                             :deadline='new Date(order["deadline"].seconds * 1000)' />
                     </div>
@@ -87,5 +87,5 @@ const overdueOrders = filteredOrders.value('Просрочена');
         </TabView>
 
 
-    </div>
+</div>
 </template>

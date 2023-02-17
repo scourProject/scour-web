@@ -1,12 +1,17 @@
 <script setup lang="ts">
 
 defineProps<{
+    uid: string
     objectName: string
     address: string
     plan: number
     status: string
     deadline: Date
 }>()
+
+const confirmOrder = () => {
+    console.log('confirmOrder')
+}
 
 </script>
 
@@ -59,6 +64,10 @@ defineProps<{
                 <div class="card-body__item__content">
                 </div>
             </div>
+            <div v-if="status == 'Ждет подтверждения'" class="flex justify-end">
+                <Button label="Подтвердить" class="bg-[#FFFFFF] b-[#060E28] color-[#060E28] m-t-5"
+                    @click="() => confirmOrder()" />
+            </div>
         </div>
-    </div>
+</div>
 </template>

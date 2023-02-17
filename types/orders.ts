@@ -5,5 +5,6 @@ export interface OrderCreate {
     status: string,
     requiredWorkerAmount: number
     deadline: Date
+    photosOfComplaints: string[]
 
 }
